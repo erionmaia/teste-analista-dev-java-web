@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: java_web_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: java_web_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/;ib/postgresql/data
+
+volumes:
+  postgres_data:
