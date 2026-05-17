@@ -14,22 +14,17 @@ public class ContaDAO {
 
     public void salvar(Conta conta) throws SQLException {
 
-        String sql = """
-                INSERTO INTO conta(
-                    nome_titular,
-                    numero_conta,
-                    saldo,
-                    status
-                )
-                VALUES (?, ?, ?, ?)
-                """;
+        String sql =
+                "INSERT INTO conta (" +
+                    "nome_titular, numero_conta, saldo, status" +
+                ") VALUES (?, ?, ?, ?)";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
             stmt.setString(1, conta.getNomeTitular());
-            stmt.setString(2, conta.getNumerConta());
+            stmt.setString(2, conta.getNumeroConta());
             stmt.setBigDecimal(3, conta.getSaldo());
             stmt.setString(4, conta.getStatus());
 
@@ -39,14 +34,10 @@ public class ContaDAO {
 
     public Conta buscarPorId(Integer id) throws SQLException {
 
-        String sql = """
-                SELECT
-                    *
-                FROM
-                    conta
-                WHERE
-                    id = ?
-                """;
+        String sql =
+                "SELECT * "+
+                "FROM conta "+
+                "WHERE id = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
@@ -67,14 +58,10 @@ public class ContaDAO {
 
     public Conta buscarPorNumeroConta(String numeroConta) throws SQLException {
 
-        String sql = """
-                SELECT
-                    *
-                FROM
-                    conta
-                WHERE
-                    numero_conta = ?
-                """;
+        String sql =
+                "SELECT * "+
+                "FROM conta "+
+                "WHERE numero_conta = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
@@ -90,20 +77,15 @@ public class ContaDAO {
 
                 return null;
             }
-
-            stmt.executeUpdate();
         }
     }
 
     public List<Conta> listar() throws SQLException {
 
-        String sql = """
-                SELECT
-                    *
-                FROM
-                    conta
-                ORDER BY id
-                """;
+        String sql =
+                "SELECT * "+
+                "FROM conta "+
+                "ORDER BY id;";
         List<Conta> contas = new ArrayList<>();
 
         try (
@@ -121,23 +103,17 @@ public class ContaDAO {
 
     public void atualizarConta(Conta conta) throws SQLException {
 
-        String sql = """
-                UPDATE
-                    conta
-                SET
-                    nome_titular = ?,
-                    numero_conta = ?,
-                    status = ?
-                WHERE
-                    id = ?
-                """;
+        String sql =
+                "UPDATE conta" +
+                "SET nome_titular = ?, numero_conta = ?, status = ?" +
+                "WHERE id = ?";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
             stmt.setString(1, conta.getNomeTitular());
-            stmt.setString(2, conta.getNumerConta());
+            stmt.setString(2, conta.getNumeroConta());
             stmt.setString(3, conta.getStatus());
             stmt.setInt(4, conta.getId());
 
@@ -150,20 +126,16 @@ public class ContaDAO {
             java.math.BigDecimal saldo,
             Connection connection) throws SQLException {
 
-        String sql = """
-                UPDATE
-                    conta
-                SET
-                    saldo = ?
-                WHERE
-                    id = ?
-                """;
+        String sql =
+                "UPDATE conta" +
+                "SET saldo = ?" +
+                "WHERE id = ?";
 
         try (
                 PreparedStatement stmt = connection.prepareStatement(sql);
         ) {
             stmt.setBigDecimal(1, saldo);
-            stmt.setInt(4, contaId);
+            stmt.setInt(2, contaId);
 
             stmt.executeUpdate();
         }

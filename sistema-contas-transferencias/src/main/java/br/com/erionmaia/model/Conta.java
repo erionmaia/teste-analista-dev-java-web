@@ -7,15 +7,15 @@ public class Conta {
 
     private Integer id;
     private String nomeTitular;
-    private String numerConta;
+    private String numeroConta;
     private BigDecimal saldo;
     private String status;
     private LocalDateTime dataCriacao;
 
-    public Conta(Integer id, String nomeTitular, String numerConta, BigDecimal saldo, String status, LocalDateTime dataCriacao) {
+    public Conta(Integer id, String nomeTitular, String numeroConta, BigDecimal saldo, String status, LocalDateTime dataCriacao) {
         this.id = id;
         this.nomeTitular = nomeTitular;
-        this.numerConta = numerConta;
+        this.numeroConta = numeroConta;
         this.saldo = saldo;
         this.status = status;
         this.dataCriacao = dataCriacao;
@@ -41,12 +41,12 @@ public class Conta {
         this.nomeTitular = nomeTitular;
     }
 
-    public String getNumerConta() {
-        return numerConta;
+    public String getNumeroConta() {
+        return numeroConta;
     }
 
-    public void setNumerConta(String numerConta) {
-        this.numerConta = numerConta;
+    public void setNumeroConta(String numerConta) {
+        this.numeroConta = numerConta;
     }
 
     public BigDecimal getSaldo() {
@@ -59,6 +59,10 @@ public class Conta {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
     public void debitar(BigDecimal valor) {

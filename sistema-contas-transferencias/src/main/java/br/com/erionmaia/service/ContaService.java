@@ -20,7 +20,7 @@ public class ContaService {
         validarConta(conta);
 
         Conta contaExistente = contaDAO.buscarPorNumeroConta(
-                conta.getNumerConta()
+                conta.getNumeroConta()
         );
 
         if (contaExistente != null) {
@@ -50,8 +50,8 @@ public class ContaService {
             throw new IllegalArgumentException("Nome do titular é obrigatório.");
         }
 
-        if (conta.getNumerConta() == null
-                || conta.getNumerConta().isBlank()) {
+        if (conta.getNumeroConta() == null
+                || conta.getNumeroConta().isBlank()) {
             throw new IllegalArgumentException("Número da conta é obrigatório.");
         }
 
