@@ -23,6 +23,7 @@
                     <th>Saldo</th>
                     <th>Status</th>
                     <th>Data de criação</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
 
@@ -35,6 +36,9 @@
                         <td>${conta.saldo}</td>
                         <td>${conta.status}</td>
                         <td>${conta.dataCriacao}</td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/contas/editar?id=${conta.id}">Editar</a>
+                        </td>
                     </tr>
                </c:forEach>
             </tbody>

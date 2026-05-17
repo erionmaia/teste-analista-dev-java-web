@@ -14,22 +14,28 @@
         <form action="${pageContext.request.contextPath}/contas" method="post">
 
             <div>
+                <input type="hidden" name="id" value="${conta.id}">
+            </div>
+
+            <br>
+
+            <div>
                 <label>Nome do Titular:</label><br>
-                <input type="text" name="nomeTitular" required>
+                <input type="text" name="nomeTitular" value="${conta.nomeTitular}" required>
             </div>
 
             <br>
 
             <div>
                 <label>Numero da Conta:</label><br>
-                <input type="number" name="numeroConta" required>
+                <input type="number" name="numeroConta" value="${conta.numeroConta}" required>
             </div>
 
             <br>
 
             <div>
                 <label>Saldo inicial:</label><br>
-                <input type="text" name="saldo" step="0.01" min="0" required>
+                <input type="text" name="saldo" step="0.01" min="0" value="${conta.saldo}" required>
             </div>
 
             <br>
@@ -37,8 +43,8 @@
             <div>
                 <label>Status:</label><br>
                 <select name="status" required>
-                    <option value="ATIVA">Ativa</option>
-                    <option value="INATIVA">Inativa</option>
+                    <option value="ATIVA" ${conta.status == 'ATIVA' ? 'selected' : ''}>Ativa</option>
+                    <option value="INATIVA" ${conta.status == 'INATIVA' ? 'selected' : ''}>Inativa</option>
                 </select>
             </div>
 

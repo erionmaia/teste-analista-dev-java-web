@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
-@WebServlet({"/contas", "/contas/nova"})
+@WebServlet({"/contas", "/contas/nova", "/contas/editar"})
 public class ContaServlet extends HttpServlet {
 
     private final ContaService contaService = new ContaService();
@@ -25,6 +25,19 @@ public class ContaServlet extends HttpServlet {
             String path = req.getServletPath();
 
             if ("/contas/nova".equals(path)) {
+                req.getRequestDispatcher("/WEB-INF/views/conta/formulario.jsp")
+                        .forward(req, resp);
+                return;
+            }
+
+            if ("/contas/editar".equals(path)) {
+
+                Integer id = Integer.parseInt(req.getParameter("id"));
+
+                Conta conta = contaService.buscarPorId(id);
+
+                req.setAttribute("conta", conta);
+
                 req.getRequestDispatcher("/WEB-INF/views/conta/formulario.jsp")
                         .forward(req, resp);
                 return;
@@ -44,13 +57,20 @@ public class ContaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
+
+            String idParam = req.getParameter("id");
+
+            Integer id = null;
+            if (idParam != null && !idParam.isBlank()) {
+                id = Integer.valueOf(idParam);
+            }
             String nomeTitular = req.getParameter("nomeTitular");
             String numeroConta = req.getParameter("numeroConta");
             BigDecimal saldo = new BigDecimal(req.getParameter("saldo"));
             String status =  req.getParameter("status");
 
             Conta conta = new Conta(
-                    null,
+                    id,
                     nomeTitular,
                     numeroConta,
                     saldo,
@@ -58,7 +78,10 @@ public class ContaServlet extends HttpServlet {
                     null
             );
 
-            contaService.criarConta(conta);
+            if (id == null)
+                contaService.criarConta(conta);
+            else
+                contaService.atualizarConta(conta);
 
             resp.sendRedirect(req.getContextPath() + "/contas");
         } catch (Exception e) {

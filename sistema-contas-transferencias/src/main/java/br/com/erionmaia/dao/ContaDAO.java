@@ -104,8 +104,10 @@ public class ContaDAO {
     public void atualizarConta(Conta conta) throws SQLException {
 
         String sql =
-                "UPDATE conta" +
-                "SET nome_titular = ?, numero_conta = ?, status = ?" +
+                "UPDATE conta " +
+                "SET nome_titular = ?, " +
+                "numero_conta = ?, " +
+                "status = ? " +
                 "WHERE id = ?";
 
         try (
