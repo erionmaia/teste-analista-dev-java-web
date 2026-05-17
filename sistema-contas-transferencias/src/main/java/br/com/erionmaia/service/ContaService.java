@@ -5,13 +5,14 @@ import br.com.erionmaia.model.Conta;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ContaService {
 
     private final ContaDAO contaDAO;
 
-    public ContaService(ContaDAO contaDAO) {
-        this.contaDAO = contaDAO;
+    public ContaService() {
+        this.contaDAO = new ContaDAO();
     }
 
     public void criarConta(Conta conta) throws SQLException {
