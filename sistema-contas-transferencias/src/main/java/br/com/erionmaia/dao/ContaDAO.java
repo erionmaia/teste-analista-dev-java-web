@@ -66,6 +66,36 @@ public class ContaDAO {
         }
     }
 
+    public Conta buscarPorNumeroConta(String numeroConta) throws SQLException {
+
+        String sql = """
+                SELECT
+                    *
+                FROM
+                    conta
+                WHERE
+                    numero_conta = ?
+                """;
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            stmt.setString(1, numeroConta);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                if (rs.next()) {
+                    return mapearConta(rs);
+                }
+
+                return null;
+            }
+
+            stmt.executeUpdate();
+        }
+    }
+
     public List<Conta> listar() throws SQLException {
 
         String sql = """
