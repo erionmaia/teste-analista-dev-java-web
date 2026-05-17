@@ -74,7 +74,7 @@ public class Conta {
             throw new IllegalArgumentException("Saldo insuficiente");
         }
 
-        this.saldo = this.saldo.add(valor);
+        this.saldo = this.saldo.subtract(valor);
     }
 
     public void creditar(BigDecimal valor) {
@@ -82,6 +82,6 @@ public class Conta {
             throw new IllegalArgumentException("Valor inválido");
         }
 
-        this.saldo = this.saldo.subtract(valor);
+        this.saldo = this.saldo.add(valor);
     }
 }

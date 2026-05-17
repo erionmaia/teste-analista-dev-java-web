@@ -129,8 +129,8 @@ public class ContaDAO {
             Connection connection) throws SQLException {
 
         String sql =
-                "UPDATE conta" +
-                "SET saldo = ?" +
+                "UPDATE conta " +
+                "SET saldo = ? " +
                 "WHERE id = ?";
 
         try (

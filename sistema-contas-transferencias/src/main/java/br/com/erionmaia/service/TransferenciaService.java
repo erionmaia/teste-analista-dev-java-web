@@ -40,7 +40,7 @@ public class TransferenciaService {
             contaDestino.creditar(valor);
 
             contaDAO.atualizarSaldo(contaOrigem.getId(), contaOrigem.getSaldo(), connection);
-            contaDAO.atualizarSaldo(contaDestino.getId(), contaOrigem.getSaldo(), connection);
+            contaDAO.atualizarSaldo(contaDestino.getId(), contaDestino.getSaldo(), connection);
 
             Movimentacao movimentacao = new Movimentacao(
                     null,
