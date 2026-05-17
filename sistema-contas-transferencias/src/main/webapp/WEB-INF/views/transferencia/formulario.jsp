@@ -4,6 +4,7 @@
 <html>
     <head>
         <title>Transferência</title>
+        <link href="${pageContext.request.contextPath}/styles/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
 

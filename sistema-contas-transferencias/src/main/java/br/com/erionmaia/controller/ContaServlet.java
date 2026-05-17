@@ -78,10 +78,21 @@ public class ContaServlet extends HttpServlet {
                     null
             );
 
-            if (id == null)
+            if (id == null) {
                 contaService.criarConta(conta);
-            else
+                req.getSession().setAttribute(
+                        "sucesso",
+                        "Conta criada com sucesso."
+                );
+            }
+
+            else {
                 contaService.atualizarConta(conta);
+                req.getSession().setAttribute(
+                        "sucesso",
+                        "Conta Atualizada com sucesso."
+                );
+            }
 
             resp.sendRedirect(req.getContextPath() + "/contas");
         } catch (Exception e) {

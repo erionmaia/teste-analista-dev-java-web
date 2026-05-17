@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Sistema Bancário</title>
+        <link href="${pageContext.request.contextPath}/styles/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <h1>Projeto Funcionando</h1>

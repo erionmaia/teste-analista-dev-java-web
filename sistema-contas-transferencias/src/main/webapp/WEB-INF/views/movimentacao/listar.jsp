@@ -1,9 +1,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:if test="${not empty sessionScope.sucesso}">
+    <p style="color: green;">
+        ${sessionScope.sucesso}
+    </p>
+
+    <c:remove var="sucesso" scope="session"/>
+</c:if>
+
+<c:if test="${not empty erro}">
+    <p style="color: red;">
+        ${erro}
+    </p>
+</c:if>
+
 <html>
     <head>
         <title>Movimentações</title>
+        <link href="${pageContext.request.contextPath}/styles/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
 
@@ -57,7 +72,7 @@
 
         <br>
 
-        <a href="${pageContext.request.contextPath}/movimentacoes?contaId=${contaIdSelecionada}&pagina=${pagina - 1}">
+        <a href="${pageContext.request.contextPath}/movimentacoes?contaId=${contaIdSelecionada}&pagina=${pagina > 1 ? pagina - 1 : 1}">
             Anterior
         </a>
 

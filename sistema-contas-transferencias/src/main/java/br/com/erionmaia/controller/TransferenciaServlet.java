@@ -41,6 +41,11 @@ public class TransferenciaServlet extends HttpServlet {
 
             transferenciaService.transferir(contaOrigemId, contaDestinoId, valor);
 
+            req.getSession().setAttribute(
+                    "sucesso",
+                    "Transferência realizada com sucesso."
+            );
+
             resp.sendRedirect(req.getContextPath() + "/contas");
 
         }catch (Exception e){

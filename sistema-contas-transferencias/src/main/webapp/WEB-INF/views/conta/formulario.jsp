@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Nova Conta</title>
+        <link href="${pageContext.request.contextPath}/styles/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <h1>Nova Conta</h1>
