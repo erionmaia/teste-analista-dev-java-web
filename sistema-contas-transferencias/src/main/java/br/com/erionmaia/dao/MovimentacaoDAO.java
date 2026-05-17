@@ -42,7 +42,7 @@ public class MovimentacaoDAO {
         try (Connection conn = ConnectionFactory.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ){
-            if (contaId != null) {
+            if (contaId == null) {
                 stmt.setNull(1, Types.INTEGER);
                 stmt.setNull(2, Types.INTEGER);
                 stmt.setNull(3, Types.INTEGER);

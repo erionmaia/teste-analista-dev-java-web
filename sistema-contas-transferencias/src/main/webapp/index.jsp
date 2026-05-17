@@ -10,5 +10,10 @@
         <br>
 
         <a href="${pageContext.request.contextPath}/transferencias">Realizar transferencia</a>
+
+        <br>
+        <a href="${pageContext.request.contextPath}/movimentacoes">
+            Listar movimentacoes
+        </a>
     </body>
 </html>
