@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99479ce9-a1a3-493e-acb8-ce9cf3c4e7f0" name="Changes" comment="fix: repara erros de digitação na classe Conta, ContaService, altera a forma de criação da query em ContaDAO, e erros de diretorio do ContaServlet.">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/erionmaia/controller/ContaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/erionmaia/controller/ContaServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/erionmaia/dao/ContaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/erionmaia/dao/ContaDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/erionmaia/service/ContaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/erionmaia/service/ContaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/conta/listar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/conta/listar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/styles/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/styles/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
