@@ -85,7 +85,7 @@ Antes de executar o projeto é necessário possuir instalado:
 - Maven 3.8+
 - Docker
 - Docker Compose
-- Apache Tomcat 9+
+- Apache Tomcat 7
 
 ---
 
