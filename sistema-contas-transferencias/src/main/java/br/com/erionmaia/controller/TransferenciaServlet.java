@@ -21,7 +21,7 @@ public class TransferenciaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            req.setAttribute("contas", contaService.listar());
+            req.setAttribute("contas", contaService.listarDTO());
 
             req.getRequestDispatcher("WEB-INF/views/transferencia/formulario.jsp")
                     .forward(req, resp);
@@ -51,7 +51,7 @@ public class TransferenciaServlet extends HttpServlet {
         }catch (Exception e){
             try {
                 req.setAttribute("erro", e.getMessage());
-                req.setAttribute("contas", contaService.listar());
+                req.setAttribute("contas", contaService.listarDTO());
 
                 req.getRequestDispatcher("WEB-INF/views/transferencia/formulario.jsp")
                         .forward(req, resp);

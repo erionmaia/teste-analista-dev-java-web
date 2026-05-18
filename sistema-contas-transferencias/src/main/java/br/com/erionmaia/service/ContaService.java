@@ -1,10 +1,14 @@
 package br.com.erionmaia.service;
 
 import br.com.erionmaia.dao.ContaDAO;
+import br.com.erionmaia.dto.ContaRequestDTO;
+import br.com.erionmaia.dto.ContaResponseDTO;
+import br.com.erionmaia.mapper.ContaMapper;
 import br.com.erionmaia.model.Conta;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContaService {
@@ -15,7 +19,9 @@ public class ContaService {
         this.contaDAO = new ContaDAO();
     }
 
-    public void criarConta(Conta conta) throws SQLException {
+    public void criarConta(ContaRequestDTO dto) throws SQLException {
+
+        Conta conta = ContaMapper.toEntity(null, dto);
 
         validarConta(conta);
 
@@ -30,18 +36,35 @@ public class ContaService {
         contaDAO.salvar(conta);
     }
 
-    public void atualizarConta(Conta conta) throws SQLException {
+    public void atualizarConta(Integer id, ContaRequestDTO dto) throws SQLException {
+
+        Conta conta = ContaMapper.toEntity(id, dto);
+
         validarConta(conta);
 
         contaDAO.atualizarConta(conta);
     }
 
-    public Conta buscarPorId(Integer id) throws SQLException {
-        return contaDAO.buscarPorId(id);
+    public ContaResponseDTO buscarDTOPorId(Integer id) throws SQLException {
+        Conta conta = contaDAO.buscarPorId(id);
+
+        if (conta == null) {
+            return null;
+        }
+
+        return ContaMapper.toResponseDTO(conta);
     }
 
-    public List<Conta> listar() throws SQLException {
-        return contaDAO.listar();
+    public List<ContaResponseDTO> listarDTO() throws SQLException {
+        List<Conta> contas = contaDAO.listar();
+
+        List<ContaResponseDTO> dtos = new ArrayList<>();
+
+        for (Conta conta : contas) {
+            dtos.add(ContaMapper.toResponseDTO(conta));
+        }
+
+        return dtos;
     }
 
     private void validarConta(Conta conta) {

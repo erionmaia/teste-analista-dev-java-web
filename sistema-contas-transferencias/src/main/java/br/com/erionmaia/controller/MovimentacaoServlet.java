@@ -37,7 +37,7 @@ public class MovimentacaoServlet extends HttpServlet {
 
             int tamanho = 10;
 
-            req.setAttribute("contas", contaService.listar());
+            req.setAttribute("contas", contaService.listarDTO());
             req.setAttribute("movimentacoes", movimentacaoService.listarPorConta(contaId, pagina, tamanho));
             req.setAttribute("contaIdSelecionada", contaId);
             req.setAttribute("pagina", pagina);

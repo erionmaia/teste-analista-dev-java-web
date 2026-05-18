@@ -1,5 +1,6 @@
 package br.com.erionmaia.controller;
 
+import br.com.erionmaia.dto.ContaRequestDTO;
 import br.com.erionmaia.model.Conta;
 import br.com.erionmaia.service.ContaService;
 
@@ -34,16 +35,14 @@ public class ContaServlet extends HttpServlet {
 
                 Integer id = Integer.parseInt(req.getParameter("id"));
 
-                Conta conta = contaService.buscarPorId(id);
-
-                req.setAttribute("conta", conta);
+                req.setAttribute("conta", contaService.buscarDTOPorId(id));
 
                 req.getRequestDispatcher("/WEB-INF/views/conta/formulario.jsp")
                         .forward(req, resp);
                 return;
             }
 
-            req.setAttribute("contas", contaService.listar());
+            req.setAttribute("contas", contaService.listarDTO());
 
             req.getRequestDispatcher(
                     "/WEB-INF/views/conta/listar.jsp")
@@ -69,17 +68,15 @@ public class ContaServlet extends HttpServlet {
             BigDecimal saldo = new BigDecimal(req.getParameter("saldo"));
             String status =  req.getParameter("status");
 
-            Conta conta = new Conta(
-                    id,
+            ContaRequestDTO dto = new ContaRequestDTO(
                     nomeTitular,
                     numeroConta,
                     saldo,
-                    status,
-                    null
+                    status
             );
 
             if (id == null) {
-                contaService.criarConta(conta);
+                contaService.criarConta(dto);
                 req.getSession().setAttribute(
                         "sucesso",
                         "Conta criada com sucesso."
@@ -87,7 +84,7 @@ public class ContaServlet extends HttpServlet {
             }
 
             else {
-                contaService.atualizarConta(conta);
+                contaService.atualizarConta(id, dto);
                 req.getSession().setAttribute(
                         "sucesso",
                         "Conta Atualizada com sucesso."
