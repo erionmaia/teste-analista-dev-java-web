@@ -34,15 +34,30 @@ public class ContaDAO {
 
     public Conta buscarPorId(Integer id) throws SQLException {
 
-        String sql =
-                "SELECT * "+
-                "FROM conta "+
-                "WHERE id = ?";
+        String sql = "SELECT * FROM conta WHERE id = ? ";
 
         try (
                 Connection conn = ConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql);
         ) {
+            stmt.setInt(1, id);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+
+                if (rs.next()) {
+                    return mapearConta(rs);
+                }
+
+                return null;
+            }
+        }
+    }
+
+    public Conta buscarPorIdParaAtualizacao(Integer id, Connection connection) throws SQLException {
+
+        String sql = "SELECT * FROM conta WHERE id = ? ";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {

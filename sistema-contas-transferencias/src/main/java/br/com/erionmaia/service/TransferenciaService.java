@@ -31,8 +31,8 @@ public class TransferenciaService {
             connection = ConnectionFactory.getConnection();
             connection.setAutoCommit(false);
 
-            Conta contaOrigem = contaDAO.buscarPorId(contaOrigemId);
-            Conta contaDestino = contaDAO.buscarPorId(contaDestinoId);
+            Conta contaOrigem = contaDAO.buscarPorIdParaAtualizacao(contaOrigemId, connection);
+            Conta contaDestino = contaDAO.buscarPorIdParaAtualizacao(contaDestinoId, connection);
 
             validarContas(contaOrigem, contaDestino, valor);
 
