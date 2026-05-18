@@ -61,6 +61,24 @@
 
         <br>
 
+        <br><br>
+
+        <c:if test="${pagina > 1}">
+            <a href="${pageContext.request.contextPath}/contas?pagina=${pagina - 1}">
+                Anterior
+            </a>
+        </c:if>
+
+        <span> Página ${pagina} de ${totalPaginas} </span>
+
+        <c:if test="${pagina < totalPaginas}">
+            <a href="${pageContext.request.contextPath}/contas?pagina=${pagina + 1}">
+                Próxima
+            </a>
+        </c:if>
+
+        <br><br>
+
         <a href="${pageContext.request.contextPath}/">Voltar</a>
    </body>
 <html>

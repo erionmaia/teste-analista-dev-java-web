@@ -65,6 +65,45 @@ public class MovimentacaoDAO {
         return movimentacoes;
     }
 
+    public int contarTotal() throws SQLException {
+
+        String sql = "SELECT COUNT(*) FROM movimentacao";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ){
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+            return 0;
+        }
+    }
+
+    public int contarTotalPorConta(Integer contaId) throws SQLException {
+
+        String sql = "SELECT COUNT(*) FROM movimentacao WHERE conta_origem_id = ? OR conta_destino_id = ?";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ){
+
+            stmt.setInt(1, contaId);
+            stmt.setInt(2, contaId);
+
+            try (ResultSet rs = stmt.executeQuery()){
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+
+            return 0;
+        }
+    }
+
     private Movimentacao mapearMovimentacao(ResultSet rs) throws SQLException {
 
         return new Movimentacao(

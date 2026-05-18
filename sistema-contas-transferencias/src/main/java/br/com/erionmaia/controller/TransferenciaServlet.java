@@ -21,7 +21,18 @@ public class TransferenciaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            req.setAttribute("contas", contaService.listarDTO());
+            int pagina = 1;
+
+            String paginaParam = req.getParameter("pagina");
+
+            if (paginaParam != null
+                    && !paginaParam.isBlank()) {
+
+                pagina = Integer.parseInt(paginaParam);
+            }
+
+            int tamanho = 10;
+            req.setAttribute("contas", contaService.listarDTO(pagina, tamanho));
 
             req.getRequestDispatcher("WEB-INF/views/transferencia/formulario.jsp")
                     .forward(req, resp);
@@ -50,8 +61,19 @@ public class TransferenciaServlet extends HttpServlet {
 
         }catch (Exception e){
             try {
+                int pagina = 1;
+
+                String paginaParam = req.getParameter("pagina");
+
+                if (paginaParam != null
+                        && !paginaParam.isBlank()) {
+
+                    pagina = Integer.parseInt(paginaParam);
+                }
+
+                int tamanho = 10;
                 req.setAttribute("erro", e.getMessage());
-                req.setAttribute("contas", contaService.listarDTO());
+                req.setAttribute("contas", contaService.listarDTO(pagina, tamanho));
 
                 req.getRequestDispatcher("WEB-INF/views/transferencia/formulario.jsp")
                         .forward(req, resp);

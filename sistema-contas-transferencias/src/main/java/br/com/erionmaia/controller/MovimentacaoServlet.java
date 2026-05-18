@@ -41,8 +41,13 @@ public class MovimentacaoServlet extends HttpServlet {
             req.setAttribute("movimentacoes", movimentacaoService.listarPorConta(contaId, pagina, tamanho));
             req.setAttribute("contaIdSelecionada", contaId);
             req.setAttribute("pagina", pagina);
+            if (contaId != null) {
+                req.setAttribute("totalPaginas", movimentacaoService.calcularTotalPaginaPorConta(contaId, tamanho));
+            } else {
+                req.setAttribute("totalPaginas", movimentacaoService.calcularTotalPagina(tamanho));
+            }
 
-            req.getRequestDispatcher("WEB-INF/views/movimentacao/listar.jsp")
+            req.getRequestDispatcher("/WEB-INF/views/movimentacao/listar.jsp")
                     .forward(req, resp);
         }catch (Exception e){
             throw new ServletException("Erro ao carregar tela de movimentacao", e);

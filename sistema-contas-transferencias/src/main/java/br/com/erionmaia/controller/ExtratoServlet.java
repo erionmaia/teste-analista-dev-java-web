@@ -17,9 +17,22 @@ public class ExtratoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+
+            int pagina = 1;
+
+            String paginaParam = req.getParameter("pagina");
+
+            if (paginaParam != null
+                    && !paginaParam.isBlank()) {
+
+                pagina = Integer.parseInt(paginaParam);
+            }
+
+            int tamanho = 10;
+
             String contaIdParam = req.getParameter("contaId");
 
-            req.setAttribute("contas", contaService.listarDTO());
+            req.setAttribute("contas", contaService.listarDTO(pagina, tamanho));
 
             if (contaIdParam != null && !contaIdParam.isBlank()) {
                 Integer contaId = Integer.valueOf(contaIdParam);
@@ -34,7 +47,18 @@ public class ExtratoServlet extends HttpServlet {
             req.setAttribute("erro", e.getMessage());
 
             try {
-                req.setAttribute("contas", contaService.listarDTO());
+                int pagina = 1;
+
+                String paginaParam = req.getParameter("pagina");
+
+                if (paginaParam != null
+                        && !paginaParam.isBlank()) {
+
+                    pagina = Integer.parseInt(paginaParam);
+                }
+
+                int tamanho = 10;
+                req.setAttribute("contas", contaService.listarDTO(pagina, tamanho));
             } catch (Exception ignored) {
             }
 

@@ -101,6 +101,35 @@ public class ContaDAO {
         return contas;
     }
 
+    public List<Conta> listarPaginado(int pagina, int tamanho) throws SQLException {
+
+        String sql =
+                "SELECT * FROM conta " +
+                "ORDER BY id " +
+                "LIMIT ? OFFSET ?";
+
+        List<Conta> contas = new ArrayList<>();
+
+        int offset = (pagina - 1) * tamanho;
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setInt(1, tamanho);
+            stmt.setInt(2, offset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    contas.add(mapearConta(rs));
+                }
+            }
+        }
+
+        return contas;
+    }
+
     public void atualizarConta(Conta conta) throws SQLException {
 
         String sql =
@@ -140,6 +169,23 @@ public class ContaDAO {
             stmt.setInt(2, contaId);
 
             stmt.executeUpdate();
+        }
+    }
+
+    public int contarTotal() throws SQLException {
+
+        String sql = "SELECT COUNT(*) FROM conta";
+
+        try (
+                Connection conn = ConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ){
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+            return 0;
         }
     }
 

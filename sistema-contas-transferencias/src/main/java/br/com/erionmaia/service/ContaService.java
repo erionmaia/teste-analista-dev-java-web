@@ -23,6 +23,7 @@ public class ContaService {
 
     public ContaService() {
         this.contaDAO = new ContaDAO();
+        this.movimentacaoDAO = new MovimentacaoDAO();
     }
 
     public void criarConta(ContaRequestDTO dto) throws SQLException {
@@ -62,7 +63,21 @@ public class ContaService {
     }
 
     public List<ContaResponseDTO> listarDTO() throws SQLException {
+
         List<Conta> contas = contaDAO.listar();
+
+        List<ContaResponseDTO> dtos = new ArrayList<>();
+
+        for (Conta conta : contas) {
+            dtos.add(ContaMapper.toResponseDTO(conta));
+        }
+
+        return dtos;
+    }
+
+    public List<ContaResponseDTO> listarDTO(int pagina, int tamanho) throws SQLException {
+
+        List<Conta> contas = contaDAO.listarPaginado(pagina, tamanho);
 
         List<ContaResponseDTO> dtos = new ArrayList<>();
 
@@ -95,6 +110,15 @@ public class ContaService {
                 ContaMapper.toResponseDTO(conta),
                 conta.getSaldo(),
                 movimentacoesDto
+        );
+    }
+
+    public int calcularTotalPagina(int tamanho) throws SQLException {
+
+        int totalRegistros = contaDAO.contarTotal();
+
+        return (int) Math.ceil(
+                (double)totalRegistros / tamanho
         );
     }
 

@@ -26,4 +26,22 @@ public class MovimentacaoService {
 
         return movimentacaoDAO.listarPorConta(contaId, pagina, tamanho);
     }
+
+    public int calcularTotalPagina(int tamanho) throws SQLException {
+
+        int totalRegistros = movimentacaoDAO.contarTotal();
+
+        int totalPaginas = (int) Math.ceil((double) totalRegistros / tamanho);
+
+        return Math.max(totalPaginas, 1);
+    }
+
+    public int calcularTotalPaginaPorConta(Integer contaId, int tamanho) throws SQLException {
+
+        int totalRegistrosPorConta = movimentacaoDAO.contarTotalPorConta(contaId);
+
+        int totalPaginas = (int) Math.ceil((double) totalRegistrosPorConta / tamanho);
+
+        return Math.max(totalPaginas, 1);
+    }
 }

@@ -42,11 +42,30 @@ public class ContaServlet extends HttpServlet {
                 return;
             }
 
-            req.setAttribute("contas", contaService.listarDTO());
+            int pagina = 1;
+
+            String paginaParam = req.getParameter("pagina");
+
+            if (paginaParam != null
+                    && !paginaParam.isBlank()) {
+
+                pagina = Integer.parseInt(paginaParam);
+            }
+
+            int tamanho = 10;
+
+            req.setAttribute("contas", contaService.listarDTO(pagina, tamanho));
+
+            req.setAttribute("pagina", pagina);
+
+            req.setAttribute(
+                    "totalPaginas",
+                    contaService.calcularTotalPagina(tamanho));
 
             req.getRequestDispatcher(
                     "/WEB-INF/views/conta/listar.jsp")
                     .forward(req, resp);
+
         } catch (SQLException e) {
             throw new ServletException("Erro ao carregar contas.", e);
         }

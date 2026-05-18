@@ -72,15 +72,21 @@
 
         <br>
 
-        <a href="${pageContext.request.contextPath}/movimentacoes?contaId=${contaIdSelecionada}&pagina=${pagina > 1 ? pagina - 1 : 1}">
-            Anterior
-        </a>
+       <br><br>
 
-        <span>Página ${pagina}</span>
+       <c:if test="${pagina > 1}">
+           <a href="${pageContext.request.contextPath}/movimentacoes?pagina=${pagina - 1}&contaId=${contaIdSelecionada}">
+               Anterior
+           </a>
+       </c:if>
 
-        <a href="${pageContext.request.contextPath}/movimentacoes?contaId=${contaIdSelecionada}&pagina=${pagina + 1}">
-            Próxima
-        </a>
+       <span> Página ${pagina} de ${totalPaginas} </span>
+
+       <c:if test="${pagina < totalPaginas}">
+           <a href="${pageContext.request.contextPath}/movimentacoes?pagina=${pagina + 1}&contaId=${contaIdSelecionada}">
+               Próxima
+           </a>
+       </c:if>
 
         <br><br>
 
