@@ -53,11 +53,11 @@ public class ContaDAO {
         }
     }
 
-    public Conta buscarPorIdParaAtualizacao(Integer id, Connection connection) throws SQLException {
+    public Conta buscarPorIdParaAtualizacao(Integer id, Connection conn) throws SQLException {
 
         String sql = "SELECT * FROM conta WHERE id = ? ";
 
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
