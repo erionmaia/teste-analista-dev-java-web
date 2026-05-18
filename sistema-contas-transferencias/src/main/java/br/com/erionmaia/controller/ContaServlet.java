@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
-@WebServlet({"/contas", "/contas/nova", "/contas/editar"})
+@WebServlet({"/contas", "/contas/nova", "/contas/editar", "/contas/inativar", "/contas/excluir"})
 public class ContaServlet extends HttpServlet {
 
     private final ContaService contaService = new ContaService();
@@ -77,11 +77,37 @@ public class ContaServlet extends HttpServlet {
         try {
 
             String idParam = req.getParameter("id");
+            String path = req.getServletPath();
 
             Integer id = null;
             if (idParam != null && !idParam.isBlank()) {
                 id = Integer.valueOf(idParam);
             }
+
+            if ("/contas/inativar".equals(path)) {
+
+                contaService.excluirLogico(id);
+
+                req.getSession().setAttribute(
+                        "sucesso",
+                        "Conta inativado com sucesso");
+
+                resp.sendRedirect(req.getContextPath() + "/contas");
+                return;
+            }
+
+            if ("/contas/excluir".equals(path)) {
+
+                contaService.deletarConta(id);
+
+                req.getSession().setAttribute(
+                        "sucesso",
+                        "Conta excluida com sucesso");
+
+                resp.sendRedirect(req.getContextPath() + "/contas");
+                return;
+            }
+
             String nomeTitular = req.getParameter("nomeTitular");
             String numeroConta = req.getParameter("numeroConta");
             BigDecimal saldo = new BigDecimal(req.getParameter("saldo"));

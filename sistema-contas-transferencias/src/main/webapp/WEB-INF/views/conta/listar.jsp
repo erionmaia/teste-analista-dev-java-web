@@ -39,6 +39,8 @@
                     <th>Status</th>
                     <th>Data de criação</th>
                     <th>Ações</th>
+                    <th>Inativar</th>
+                    <th>Excluir</th>
                 </tr>
             </thead>
 
@@ -53,6 +55,22 @@
                         <td>${conta.dataCriacao}</td>
                         <td>
                             <a href="${pageContext.request.contextPath}/contas/editar?id=${conta.id}">Editar</a>
+                        </td>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/contas/inativar" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${conta.id}">
+                                <button type="submit" onclick="return confirm('Deseja realmente inativar esta conta?')">
+                                    Inativar
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/contas/excluir" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="${conta.id}">
+                                <button type="submit" onclick="return confirm('Deseja realmente excluir esta conta? Ela será excluída permanentemente.')">
+                                    Excluir
+                                </button>
+                            </form>
                         </td>
                     </tr>
                </c:forEach>

@@ -172,6 +172,35 @@ public class ContaDAO {
         }
     }
 
+    public void deletarConta(Integer contaId) throws SQLException {
+
+        String sql = "DELETE FROM conta WHERE id = ?";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, contaId);
+
+            stmt.executeUpdate();
+        }
+    }
+
+    public void excluirLogico(Integer id) throws SQLException {
+
+        String sql =
+                "UPDATE conta SET status = 'INATIVA' WHERE id = ?";
+
+        try (
+                Connection connection = ConnectionFactory.getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)
+        ) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+
+    }
+
     public int contarTotal() throws SQLException {
 
         String sql = "SELECT COUNT(*) FROM conta";

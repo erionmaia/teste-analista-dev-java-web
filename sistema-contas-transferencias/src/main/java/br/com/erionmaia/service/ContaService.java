@@ -10,8 +10,11 @@ import br.com.erionmaia.mapper.ContaMapper;
 import br.com.erionmaia.mapper.MovimentacaoMapper;
 import br.com.erionmaia.model.Conta;
 import br.com.erionmaia.model.Movimentacao;
+import br.com.erionmaia.util.ConnectionFactory;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +89,26 @@ public class ContaService {
         }
 
         return dtos;
+    }
+
+    public void deletarConta(Integer id) throws SQLException {
+        Conta conta = contaDAO.buscarPorId(id);
+
+        if (conta == null) {
+            throw new IllegalArgumentException("Conta não encontrada");
+        }
+        contaDAO.deletarConta(id);
+
+    }
+
+    public void excluirLogico(Integer id) throws SQLException {
+
+        Conta conta = contaDAO.buscarPorId(id);
+
+        if (conta == null) {
+            throw new IllegalArgumentException("Conta não encontrada");
+        }
+        contaDAO.excluirLogico(id);
     }
 
     public ExtratoContaDTO gerarExtrato(Integer contaId) throws SQLException {
