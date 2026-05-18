@@ -16,5 +16,10 @@
         <a href="${pageContext.request.contextPath}/movimentacoes">
             Listar movimentacoes
         </a>
+
+        <br>
+        <a href="${pageContext.request.contextPath}/extrato">
+            Consultar extrato
+        </a>
     </body>
 </html>

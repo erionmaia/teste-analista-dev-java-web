@@ -1,10 +1,15 @@
 package br.com.erionmaia.service;
 
 import br.com.erionmaia.dao.ContaDAO;
+import br.com.erionmaia.dao.MovimentacaoDAO;
 import br.com.erionmaia.dto.ContaRequestDTO;
 import br.com.erionmaia.dto.ContaResponseDTO;
+import br.com.erionmaia.dto.ExtratoContaDTO;
+import br.com.erionmaia.dto.MovimentacaoResponseDTO;
 import br.com.erionmaia.mapper.ContaMapper;
+import br.com.erionmaia.mapper.MovimentacaoMapper;
 import br.com.erionmaia.model.Conta;
+import br.com.erionmaia.model.Movimentacao;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -14,6 +19,7 @@ import java.util.List;
 public class ContaService {
 
     private final ContaDAO contaDAO;
+    private final MovimentacaoDAO movimentacaoDAO;
 
     public ContaService() {
         this.contaDAO = new ContaDAO();
@@ -65,6 +71,31 @@ public class ContaService {
         }
 
         return dtos;
+    }
+
+    public ExtratoContaDTO gerarExtrato(Integer contaId) throws SQLException {
+
+        Conta conta = contaDAO.buscarPorId(contaId);
+
+        if (conta == null) {
+            throw new IllegalArgumentException("Conta não encontrada.");
+        }
+
+        List<Movimentacao> movimentacoes = movimentacaoDAO.listarPorConta(contaId, 1, 50);
+
+        List<MovimentacaoResponseDTO> movimentacoesDto = new ArrayList<>();
+
+        for (Movimentacao movimentacao : movimentacoes) {
+            movimentacoesDto.add(
+                    MovimentacaoMapper.toResponseDTO(movimentacao)
+            );
+        }
+
+        return new ExtratoContaDTO(
+                ContaMapper.toResponseDTO(conta),
+                conta.getSaldo(),
+                movimentacoesDto
+        );
     }
 
     private void validarConta(Conta conta) {
